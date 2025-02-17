@@ -171,6 +171,43 @@ json
   }
 }
 
+# Задание 7
+
+Общая стоимость книг каждого автора с сортировкой по убыванию:
+
+sql
+
+SELECT a.Name AS AuthorName, SUM(b.Price) AS TotalBookValue
+FROM Authors a
+JOIN Books b ON a.AuthorId = b.AuthorId
+GROUP BY a.Name
+ORDER BY TotalBookValue DESC;
+Авторы, чья стоимость книг превышает 1500:
+
+sql
+
+SELECT a.Name AS AuthorName
+FROM Authors a
+JOIN Books b ON a.AuthorId = b.AuthorId
+GROUP BY a.AuthorId, a.Name
+HAVING SUM(b.Price) > 1500;
+Авторы с количеством книг, написанных ими:
+
+sql
+
+SELECT a.Name AS AuthorName, COUNT(b.BookId) AS BookCount
+FROM Authors a
+LEFT JOIN Books b ON a.AuthorId = b.AuthorId
+GROUP BY a.AuthorId, a.Name;
+Авторы, у которых нет написанных книг:
+
+sql
+
+SELECT a.Name AS AuthorName
+FROM Authors a
+LEFT JOIN Books b ON a.AuthorId = b.AuthorId
+WHERE b.BookId IS NULL;
+
 
 
 
