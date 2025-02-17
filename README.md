@@ -57,3 +57,37 @@
 # Задание 4 
 
 https://pixso.net/app/editor/3kcjwrVyHXvyb51opWSfmg?icon_type=1&page-id=0%3A1
+
+# Задание 7
+
+1. Общая стоимость книг для каждого автора и сортировка по убыванию
+   
+SELECT a.Name, SUM(b.Price) AS TotalPrice
+FROM Authors a
+JOIN Books b ON a.AuthorId = b.AuthorId
+GROUP BY a.Name
+ORDER BY TotalPrice DESC;
+
+2. Стоимость книг автора превышает 1500
+
+SELECT a.Name, SUM(b.Price) AS TotalPrice
+FROM Authors a
+JOIN Books b ON a.AuthorId = b.AuthorId
+GROUP BY a.Name
+HAVING SUM(b.Price) > 1500;
+
+3. Вывести авторов с количеством книг
+
+SELECT a.Name, COUNT(b.BookId) AS BookCount
+FROM Authors a
+LEFT JOIN Books b ON a.AuthorId = b.AuthorId
+GROUP BY a.Name;
+
+4. Получить авторов без книг
+
+SELECT a.Name
+FROM Authors a
+LEFT JOIN Books b ON a.AuthorId = b.AuthorId
+WHERE b.BookId IS NULL;
+
+
